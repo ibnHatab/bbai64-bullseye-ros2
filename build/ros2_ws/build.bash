@@ -26,12 +26,12 @@ wget https://raw.githubusercontent.com/ros2/ros2/${DISTRO}/ros2.repos
 
 if [ ${BUILD_FULL_PKG} = true ]; then
     echo "Building full package"
-    wget https://raw.githubusercontent.com/Ar-Ray-code/rpi-bullseye-ros2/main/repos/ds.repos
-    wget https://raw.githubusercontent.com/Ar-Ray-code/rpi-bullseye-ros2/main/repos/realsense.repos
+#    wget https://raw.githubusercontent.com/Ar-Ray-code/rpi-bullseye-ros2/main/repos/ds.repos
+#    wget https://raw.githubusercontent.com/Ar-Ray-code/rpi-bullseye-ros2/main/repos/realsense.repos
     wget https://raw.githubusercontent.com/Ar-Ray-code/rpi-bullseye-ros2/main/repos/rostackchan.repos
     wget https://raw.githubusercontent.com/Ar-Ray-code/rpi-bullseye-ros2/main/repos/urg.repos
-    wget https://raw.githubusercontent.com/Ar-Ray-code/rpi-bullseye-ros2/main/repos/velodyne.repos
-    wget https://raw.githubusercontent.com/Ar-Ray-code/rpi-bullseye-ros2/main/repos/webcam.repos
+#    wget https://raw.githubusercontent.com/Ar-Ray-code/rpi-bullseye-ros2/main/repos/velodyne.repos
+#    wget https://raw.githubusercontent.com/Ar-Ray-code/rpi-bullseye-ros2/main/repos/webcam.repos
 
     for f in *.repos; do
         echo "---- importing $f ----"
@@ -41,6 +41,25 @@ else
     echo "Building minimal package"
     vcs import src < ros2.repos
 fi
+
+vcs import src << EOF
+repositories:
+  ros-perception/vision_opencv:
+    type: git
+    url: https://github.com/ros-perception/vision_opencv.git
+    version: humble
+EOF
+
+
+touch src/ros-visualization/CATKIN_IGNORE
+touch src/ros-visualization/COLCON_IGNORE
+touch src/ros2/rviz/COLCON_IGNORE
+touch src/ros2/examples/COLCON_IGNORE 
+touch src/ros2/demos/COLCON_IGNORE
+touch src/eclipse-cyclonedds/COLCON_IGNORE
+touch src/eclipse-iceoryx/COLCON_IGNORE
+touch src/ros/ros_tutorials/COLCON_IGNORE
+
 
 rosdep update
 # rosdep install -r -y -i --from-paths /ros2_ws/src/ --rosdistro ${DISTRO}
