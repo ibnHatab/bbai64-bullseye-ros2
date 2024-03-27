@@ -1,6 +1,8 @@
-# Raspberry Pi OS ROS2
+ BeagleBone AI-64 OS ROS2
 
-Build ROS2 for Raspbian
+
+Build ROS2 for [ARM64 - Debian 11.x (Bullseye) - Monthly Snapshots - 2023-10-07](https://forum.beagleboard.org/t/arm64-debian-11-x-bullseye-monthly-snapshots-2023-10-07/32318/1)
+No GUI build
 
 ![](./images_for_readme//rviz_rpi.jpg)
 
